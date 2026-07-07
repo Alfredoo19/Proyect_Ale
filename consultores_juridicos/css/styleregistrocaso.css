@@ -1,0 +1,141 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: url('../img/fondo-basedatos.png') no-repeat center center fixed;
+    background-size: cover;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    padding: 30px;
+    width: 93%;
+    margin: 30px;
+    justify-content: flex-end; /* Cambiado a flex-end para alinear a la derecha */
+}
+
+nav ul {
+    padding: 35px;
+}
+
+nav ul li {
+    display: inline-block;
+    margin-left: 35px; /* Cambiado a margin-left para espaciar a la derecha */
+}
+
+nav ul li a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #000000;
+    font-size: 20px;
+}
+
+nav ul li a:hover {
+    background-color: #ffffff94; /* Cambia el fondo al pasar el mouse */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Agrega un sombreado sutil al pasar el mouse */
+}
+
+.contenedor-principal {
+    width: 90%;
+    margin: auto;
+    margin-top: -60px;
+    border: solid 2px #000000;
+}
+
+.contenedor-principal h1{
+    font-size: 50px;
+}
+
+/* Alinea el texto y otros elementos dentro del contenedor principal */
+.contenedor-principal * {
+    text-align: justify;
+}
+
+.contenedor-principal h1 {
+    text-align: center;
+}
+ /* Estilos para las columnas y etiquetas */
+ .contenedor-secundario {
+    display: flex;
+    justify-content: space-between; /* Cambiado a space-between para alinear las columnas */
+    font-size: 30px;
+}
+
+.columna-uno,
+.columna-dos {
+    flex: 1;
+    text-align: justify;
+    margin: 10px;
+    padding-left: 40px; 
+}
+
+/* Estilos para el tercer contenedor */
+.contenedor-tercero {
+    text-align: left;
+    margin-left: 40px;
+    font-size: 30px;
+}
+.contenedor-tercero button {
+    background-color: #d7981b; /* Color de fondo */
+    color: rgb(0, 0, 0); /* Color del texto */
+    padding: 10px 20px; /* Relleno interno */
+    font-size: 25px; /* Tamaño de fuente */
+    border: none; /* Sin bordes */
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer; /* Cambia el cursor al pasar el mouse */
+    float: right; /* Alinea a la derecha */
+    margin:  25px 415px;
+}
+
+/* Cambia el color del botón al pasar el mouse */
+.contenedor-tercero button:hover {
+    background-color: #a07845;
+}
+
+.contenedor-principal input[type="text"] {
+    width: 80%; /* O ajusta a un porcentaje específico o un valor en píxeles */
+    padding: 8px; /* Relleno interno */
+    margin-bottom: 8px; /* Espaciado inferior */
+    box-sizing: border-box; /* Incluye el relleno y el borde en el tamaño total */
+    border: none;
+    border-radius: 8px; /* Bordes redondeados */
+}
+.contenedor-tercero input[type="text"] {
+    width: 30%; /* O ajusta a un porcentaje específico o un valor en píxeles */
+    padding: 8px; /* Relleno interno */
+    margin-bottom: 8px; /* Espaciado inferior */
+    box-sizing: border-box; /* Incluye el relleno y el borde en el tamaño total */
+    border: none;
+    border-radius: 8px; /* Bordes redondeados */
+}
+.opciones-desplegables {
+    position: relative;
+    display: inline-block;
+}
+
+.opciones-desplegables input {
+    padding: 10px;
+            width: 450; /* Ancho inicial de la caja de texto ajustado */
+            min-width: 400px; /* Ancho mínimo de la caja de texto */
+            box-sizing: border-box;
+        }
+
+.opciones-desplegables input:focus + .opciones-adicionales {
+    display: block;
+}
+
+.opciones-desplegables .opciones-adicionales {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 80%;
+    padding: 5px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    background-color: #fff;
+}
+.contenedor-tercero p{
+    font-size: 15px;
+}

@@ -1,0 +1,56 @@
+body {
+    font-family: Tahoma;
+    background-color: rgb(238, 228, 216);
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    height: 100vh;
+}
+
+.contenedor {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.columna-uno {
+    flex: 1; /* Ajusta el tamaño de la columna 1 */
+    padding: 150px; /* Añade espacio alrededor de la imagen */
+}
+
+.columna-uno img {
+    width: 110%; /* Ajusta el tamaño de la imagen */
+}
+
+.columna-dos {
+    flex: 1; /* Ajusta el tamaño de la columna 2 */
+    padding: auto; /* Añade espacio alrededor del contenido del formulario */
+    text-align: left; /* Alinea el texto a la izquierda */
+}
+
+.columna-dos p{
+    font-size: 48px;
+}
+.columna-dos label,
+.columna-dos input,
+.columna-dos button {
+    margin-bottom: 15px;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 28px; /* Ajusta el tamaño de la fuente */
+}
+
+.columna-dos input,
+.columna-dos button {
+    padding: 15px;
+    border: 2px solid #4caf50;
+    border-radius: 10px;
+    font-size: 18px; /* Ajusta el tamaño de la fuente */
+}
+
+.columna-dos button {
+    background-color: #4caf50;
+    color: white;
+    cursor: pointer;
+}

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>REGISTRO DE EXPEDIENTE</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/styleregistroex.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="solicitudregistro.html">SOLICITUD DE REGISTRO</a></li>
+            <li><a href="registroex.html">REGISTRO DE EXPEDIENTE</a></li>
+            <li><a href="registrocaso.html">REGISTRO DE CASO</a></li>
+        </ul>
+    </nav>
+    <div class="contenedor-principal">
+        <h1>REGISTRO DE EXPEDIENTE</h1>
+        <div class="contenedor-secundario">
+            <!--Columna 1-->
+            <div class="columna-uno">
+                <label>Nombre completo:</label><br>
+                <input type="text" id="nombre_completo" name="nombre_completo">
+
+            </div>
+        </div>
+        <div class="contenedor-tercero">
+            <!--Columna 1-->
+            <div class="columna-uno-dos">
+                <label>Fecha:</label>
+                <input type="date" id="fecha" name="fecha">
+
+            </div>
+            <!--Columna dos-->
+            <div class="columna-dos">
+                <label>Hora:</label><br>
+                <input type="time" id="hora" name="hora">
+
+            </div>
+            <!--Columna 3-->
+            <div class="columna-tres">
+                <label>Etiqueta:</label>
+                <input type="text" id="etiqueta" name="etiqueta" placeholder="Escriba la etiqueta del asunto">
+            </div>
+        </div>
+        <div class="contenedor-cuarto">
+            <!--Columna 1-->
+            <div class="columna-uno-tres">
+                <label>Asunto:</label><br>
+                <input type="text" id="asunto" name="asunto">
+                <button type="button" onclick="guardarExpediente()">Aceptar</button><br><br>
+
+            </div>
+        </div>
+    </div><br><br>
+    <script>
+        async function guardarExpediente() {
+            const nombre_completo = document.getElementById('nombre_completo').value.trim();
+            const fecha = document.getElementById('fecha').value;
+            const hora = document.getElementById('hora').value;
+            const etiqueta = document.getElementById('etiqueta').value.trim();
+            const asunto = document.getElementById('asunto').value.trim();
+
+            if (!nombre_completo || !fecha || !hora || !etiqueta || !asunto) {
+                alert('Completa todos los campos del expediente');
+                return;
+            }
+
+            const res = await fetch('http://localhost:3000/api/expedientes', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ nombre_completo, fecha, hora, etiqueta, asunto })
+            });
+
+            const data = await res.json().catch(() => ({}));
+            if (!res.ok) {
+                alert(data.error || 'Error al guardar el expediente');
+                return;
+            }
+
+            alert('Expediente guardado correctamente');
+        }
+    </script>
+</body>
+</html>

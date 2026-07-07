@@ -1,0 +1,95 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    background: url('../img/registro.png') no-repeat center center fixed;
+    background-size: cover;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    padding: 30px;
+    width: 93%;
+    margin: 1px;
+    justify-content: flex-end; /* Cambiado a flex-end para alinear a la derecha */
+}
+
+nav ul {
+    padding: 42px;
+}
+
+nav ul li {
+    display: inline-block;
+    margin-left: 36px; /* Cambiado a margin-left para espaciar a la derecha */
+}
+
+nav ul li a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #000000;
+    font-size: 20px;
+}
+
+nav ul li a:hover {
+    background-color: #ffffff94; /* Cambia el fondo al pasar el mouse */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Agrega un sombreado sutil al pasar el mouse */
+}
+.contenedor-principal {
+    width: 90%;
+    margin: auto;
+    border: solid 2px black;
+}
+
+h1 {
+    text-align: center;
+    font-size: 40px;
+}
+
+.contenedor-secundario {
+    display: flex;
+    justify-content: space-between;
+}
+
+.columna-uno,
+.columna-dos {
+    flex: 1;
+    padding: 20px;
+}
+
+.columna-uno label,
+.columna-dos label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+.columna-uno select,
+.columna-dos select,
+.columna-uno input[type="date"],
+.columna-dos input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.columna-dos p {
+    font-size: 14px;
+    margin-top: 5px;
+    color: #666;
+}
+
+.columna-dos button {
+    background-color: #d09c57;
+    color: black;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    float: right;
+}
+
+.columna-dos button:hover {
+    background-color: #a07845;
+}

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>REGISTRO DE CASO</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/styleregistrocaso.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="solicitudregistro.html">SOLICITUD DE REGISTRO</a></li>
+            <li><a href="registroex.html">REGISTRO DE EXPEDIENTE</a></li>
+            <li><a href="registrocaso.html">REGISTRO DE CASO</a></li>
+        </ul>
+    </nav>
+    <div class="contenedor-principal">
+        <h1>REGISTRO DE CASO</h1>
+        <div class="contenedor-secundario">
+            <!--Columna 1-->
+            <div class="columna-uno">
+            <label>Promovente:</label><br>
+                <input type="text" id="promovente" name="promovente" required>
+            </div>
+            <!--Columna dos-->
+            <div class="columna-uno">
+                <label>Subir archivo:</label><br>
+                <input type="file" id="archivo" accept=".pdf,.doc,.docx"><br><br>
+                <button onclick="visualizarArchivo()">Visualizar</button>
+                <button onclick="eliminarArchivo()">Eliminar</button>
+                <div id="visor"></div>
+            </div>
+        </div>
+            <div class="contenedor-secundario">
+            <!--Columna 1-->
+            <div class="columna-dos">
+            <label>Demandado:</label><br>
+                <input type="text" id="demandado" name="demandado" required>
+            </div>
+            <!--Columna dos-->
+            <div class="columna-dos">
+                <label>Juzgado:</label><br>
+            <input type="text" id="juzgado" name="juzgado" placeholder="Escriba el juzgado" required>
+            </div>
+        </div>
+        <div class="contenedor-tercero">
+            <label>No. Expediente (Opcional)</label><br>
+            <input type="text" id="no_expediente" name="no_expediente"><br>
+            <p>Formato: [Número de expediente]/[Año del expediente] Ej.999/2023</p>
+            <button type="button" onclick="guardarCaso()">Guardar</button>
+            
+            <br><label>Municipio</label>
+            <select id="municipio" name="municipio" required>
+                <option>Balancán</option>
+                <option>Centla</option>
+                <option>Centro</option>
+                <option>Comalcalco</option>
+                <option>Cunduacán</option>
+                <option>Emiliano Zapata</option>
+                <option>Huimanguillo</option>
+                <option>Jalapa</option>
+                <option>Jalpa de Méndez</option>
+                <option>Jonuta</option>
+                <option>Macuspana</option>
+                <option>Nacajuca</option>
+                <option>Paraíso</option>
+                <option>Tacotalpa</option>
+                <option>Teapa</option>
+                <option>Tenosique</option>
+            </select>
+        </div><br><br>
+    </div>
+
+    <script>
+        async function guardarCaso() {
+            const promovente = document.getElementById('promovente').value.trim();
+            const demandado = document.getElementById('demandado').value.trim();
+            const juzgado = document.getElementById('juzgado').value.trim();
+            const no_expediente = document.getElementById('no_expediente').value.trim();
+            const municipio = document.getElementById('municipio').value;
+            const archivoInput = document.getElementById('archivo');
+
+            if (!promovente || !demandado || !juzgado || !municipio) {
+                alert('Completa promovente, demandado, juzgado y municipio');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('promovente', promovente);
+            formData.append('demandado', demandado);
+            formData.append('juzgado', juzgado);
+            formData.append('no_expediente', no_expediente);
+            formData.append('municipio', municipio);
+
+            if (archivoInput.files.length > 0) {
+                formData.append('archivo', archivoInput.files[0]);
+            }
+
+            const res = await fetch('http://localhost:3000/api/casos', {
+                method: 'POST',
+                body: formData
+            });
+
+            const data = await res.json().catch(() => ({}));
+            if (!res.ok) {
+                alert(data.error || 'Error al guardar el caso');
+                return;
+            }
+
+            alert('Registro guardado correctamente');
+            // Limpieza opcional
+            // document.getElementById('archivo').value = '';
+        }
+
+        function visualizarArchivo() {
+            const archivoInput = document.getElementById('archivo');
+            const visor = document.getElementById('visor');
+            if (archivoInput.files.length > 0) {
+                const archivo = archivoInput.files[0];
+                const url = URL.createObjectURL(archivo);
+                visor.innerHTML = `<iframe src="${url}" width="100%" height="400px"></iframe>`;
+            } else {
+                alert('No se ha seleccionado ningún archivo');
+            }
+        }
+
+        function eliminarArchivo() {
+            const archivoInput = document.getElementById('archivo');
+            archivoInput.value = "";
+            document.getElementById('visor').innerHTML = "";
+            alert('Archivo eliminado correctamente');
+        }
+    </script>
+</body>
+</html>

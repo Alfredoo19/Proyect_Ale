@@ -1,0 +1,39 @@
+body {
+    font-family: 'Arial Narrow', Arial, sans-serif;
+    background-image: url('../img/fondo.png'); 
+    background-size: cover; /* Ajusta el tamaño de la imagen para cubrir todo el fondo */
+    background-position: center; /* Ajusta la posición de la imagen en el fondo */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh; /* Garantiza que el contenedor esté centrado verticalmente en la página */
+}
+.contenedor {
+    border: 1px solid black; /* Borde negro alrededor del contenedor */
+    padding: 20px; /* Relleno alrededor del contenedor */
+    text-align: center; /* Centra el contenido del contenedor */
+    margin-top: 132px; /* Ajusta el espacio en la parte superior*/
+}
+
+.titulo {
+    margin-top: 190px; /* Ajusta el espacio en la parte superior */
+    margin-bottom: 20px; /* Espacio entre el título y los botones */
+}
+
+.titulo h1 {
+    margin: 0; /* Elimina el margen predeterminado de los encabezados */
+    font-size: 70px;
+}
+
+.botones {
+    display: flex; /* Muestra los botones en una línea */
+    justify-content: center; /* Centra los botones horizontalmente */
+    margin-top: 30px; /* Ajusta el espacio en la parte superior*/
+}
+
+.botones button {
+    padding: 8px 10px; /* Relleno interno de los botones */
+    margin: 0 5px; /* Espacio entre los botones */
+}

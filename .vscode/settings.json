@@ -1,0 +1,12 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "database": "expedientes.db",
+            "name": "Base de datos",
+            "group": "File"
+        }
+    ],
+    "sqltools.useNodeRuntime": true
+}
