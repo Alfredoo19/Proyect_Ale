@@ -18,42 +18,34 @@
     <div class="contenedor-principal">
         <h1>REGISTRO DE EXPEDIENTE</h1>
         <div class="contenedor-secundario">
-            <!--Columna 1-->
             <div class="columna-uno">
                 <label>Nombre completo:</label><br>
-                <input type="text" id="nombre_completo" name="nombre_completo">
-
+                <input type="text" id="nombre_completo" name="nombre_completo" required>
             </div>
         </div>
         <div class="contenedor-tercero">
-            <!--Columna 1-->
             <div class="columna-uno-dos">
                 <label>Fecha:</label>
-                <input type="date" id="fecha" name="fecha">
-
+                <input type="date" id="fecha" name="fecha" required>
             </div>
-            <!--Columna dos-->
             <div class="columna-dos">
                 <label>Hora:</label><br>
-                <input type="time" id="hora" name="hora">
-
+                <input type="time" id="hora" name="hora" required>
             </div>
-            <!--Columna 3-->
             <div class="columna-tres">
                 <label>Etiqueta:</label>
-                <input type="text" id="etiqueta" name="etiqueta" placeholder="Escriba la etiqueta del asunto">
+                <input type="text" id="etiqueta" name="etiqueta" placeholder="Escriba la etiqueta del asunto" required>
             </div>
         </div>
         <div class="contenedor-cuarto">
-            <!--Columna 1-->
             <div class="columna-uno-tres">
                 <label>Asunto:</label><br>
-                <input type="text" id="asunto" name="asunto">
+                <input type="text" id="asunto" name="asunto" required>
                 <button type="button" onclick="guardarExpediente()">Aceptar</button><br><br>
-
             </div>
         </div>
     </div><br><br>
+
     <script>
         async function guardarExpediente() {
             const nombre_completo = document.getElementById('nombre_completo').value.trim();
@@ -67,20 +59,33 @@
                 return;
             }
 
-            const res = await fetch('http://localhost:3000/api/expedientes', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ nombre_completo, fecha, hora, etiqueta, asunto })
-            });
+            try {
+                const res = await fetch('https://proyect-ale.onrender.com/api/expedientes', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ nombre_completo, fecha, hora, etiqueta, asunto })
+                });
 
-            const data = await res.json().catch(() => ({}));
-            if (!res.ok) {
-                alert(data.error || 'Error al guardar el expediente');
-                return;
+                const data = await res.json();
+                if (!res.ok || !data.ok) {
+                    alert(data.error || 'Error al guardar el expediente');
+                    return;
+                }
+
+                alert('Expediente guardado correctamente con ID: ' + data.id);
+
+                // Limpieza de campos
+                document.getElementById('nombre_completo').value = '';
+                document.getElementById('fecha').value = '';
+                document.getElementById('hora').value = '';
+                document.getElementById('etiqueta').value = '';
+                document.getElementById('asunto').value = '';
+            } catch (err) {
+                alert('Error de conexión con el servidor');
+                console.error(err);
             }
-
-            alert('Expediente guardado correctamente');
         }
     </script>
+    <script src="js/app.js"></script>
 </body>
 </html>

@@ -16,9 +16,8 @@
         </ul>
     </nav>
     <div class="contenedor-principal">
-        <h1>SOLICITU DE REGISTRO</h1>
+        <h1>SOLICITUD DE REGISTRO</h1>
         <div class="contenedor-secundario">
-            <!--Columna 1-->
             <div class="columna-uno">
                 <label for="municipio">Municipio:</label>
                 <select id="municipio" name="municipio">
@@ -40,9 +39,8 @@
                     <option>Tenosique</option>
                 </select><br><br>
                 <label>Fecha</label>
-                <input type="date">
+                <input type="date" id="fecha" name="fecha">
             </div>
-            <!--Columna dos-->
             <div class="columna-dos">
                 <label for="juzgado">Juzgado:</label>
                 <input type="text" id="juzgado" name="juzgado" placeholder="Escriba el juzgado"><br><br>
@@ -67,35 +65,44 @@
                 return;
             }
 
-            const res = await fetch('http://localhost:3000/api/casos?no_expediente=' + encodeURIComponent(noExpediente));
-            const data = await res.json().catch(() => ({}));
+            try {
+                const res = await fetch('https://proyect-ale.onrender.com/api/casos?no_expediente=' + encodeURIComponent(noExpediente));
+                const data = await res.json();
 
-            if (!res.ok) {
-                alert(data.error || 'Error al buscar');
-                return;
+                if (!res.ok || !data.ok) {
+                    alert(data.error || 'Error al buscar');
+                    return;
+                }
+
+                if (!data.casos || data.casos.length === 0) {
+                    resultado.innerHTML = '<p>No se encontraron casos con ese No. Expediente.</p>';
+                    return;
+                }
+
+                const items = data.casos.map(c => {
+                    const archivo = c.archivo_path 
+                        ? `<a href="https://proyect-ale.onrender.com${c.archivo_path}" target="_blank">Ver archivo</a>` 
+                        : '';
+                    return `
+                        <div style="border:1px solid #000; padding:10px; margin:10px 0;">
+                            <div><b>Promovente:</b> ${c.promovente}</div>
+                            <div><b>Demandado:</b> ${c.demandado}</div>
+                            <div><b>Juzgado:</b> ${c.juzgado}</div>
+                            <div><b>Municipio:</b> ${c.municipio}</div>
+                            <div><b>No. Expediente:</b> ${c.no_expediente || ''}</div>
+                            <div>${archivo}</div>
+                        </div>
+                    `;
+                }).join('');
+
+                resultado.innerHTML = `<h2>Resultados (${data.count})</h2>` + items;
+            } catch (err) {
+                alert('Error de conexión con el servidor');
+                console.error(err);
             }
-
-            if (!data.casos || data.casos.length === 0) {
-                resultado.innerHTML = '<p>No se encontraron casos con ese No. Expediente.</p>';
-                return;
-            }
-
-            const items = data.casos.map(c => {
-                const archivo = c.archivo_path ? `<a href="http://localhost:3000${c.archivo_path}" target="_blank">Ver archivo</a>` : '';
-                return `
-                    <div style="border:1px solid #000; padding:10px; margin:10px 0;">
-                        <div><b>Promovente:</b> ${c.promovente}</div>
-                        <div><b>Demandado:</b> ${c.demandado}</div>
-                        <div><b>Juzgado:</b> ${c.juzgado}</div>
-                        <div><b>Municipio:</b> ${c.municipio}</div>
-                        <div><b>No. Expediente:</b> ${c.no_expediente || ''}</div>
-                        <div>${archivo}</div>
-                    </div>
-                `;
-            }).join('');
-
-            resultado.innerHTML = `<h2>Resultados (${data.count})</h2>` + items;
         }
     </script>
+    <script src="js/app.js"></script>
 </body>
 </html>
+
