@@ -18,12 +18,10 @@
     <div class="contenedor-principal">
         <h1>REGISTRO DE CASO</h1>
         <div class="contenedor-secundario">
-            <!--Columna 1-->
             <div class="columna-uno">
-            <label>Promovente:</label><br>
+                <label>Promovente:</label><br>
                 <input type="text" id="promovente" name="promovente" required>
             </div>
-            <!--Columna dos-->
             <div class="columna-uno">
                 <label>Subir archivo:</label><br>
                 <input type="file" id="archivo" accept=".pdf,.doc,.docx"><br><br>
@@ -32,16 +30,14 @@
                 <div id="visor"></div>
             </div>
         </div>
-            <div class="contenedor-secundario">
-            <!--Columna 1-->
+        <div class="contenedor-secundario">
             <div class="columna-dos">
-            <label>Demandado:</label><br>
+                <label>Demandado:</label><br>
                 <input type="text" id="demandado" name="demandado" required>
             </div>
-            <!--Columna dos-->
             <div class="columna-dos">
                 <label>Juzgado:</label><br>
-            <input type="text" id="juzgado" name="juzgado" placeholder="Escriba el juzgado" required>
+                <input type="text" id="juzgado" name="juzgado" placeholder="Escriba el juzgado" required>
             </div>
         </div>
         <div class="contenedor-tercero">
@@ -97,20 +93,31 @@
                 formData.append('archivo', archivoInput.files[0]);
             }
 
-            const res = await fetch('http://localhost:3000/api/casos', {
-                method: 'POST',
-                body: formData
-            });
+            try {
+                const res = await fetch('https://proyect-ale.onrender.com/api/casos', {
+                    method: 'POST',
+                    body: formData
+                });
 
-            const data = await res.json().catch(() => ({}));
-            if (!res.ok) {
-                alert(data.error || 'Error al guardar el caso');
-                return;
+                const data = await res.json();
+                if (!res.ok || !data.ok) {
+                    alert(data.error || 'Error al guardar el caso');
+                    return;
+                }
+
+                alert('Registro guardado correctamente con ID: ' + data.id);
+                // Limpieza opcional
+                document.getElementById('promovente').value = '';
+                document.getElementById('demandado').value = '';
+                document.getElementById('juzgado').value = '';
+                document.getElementById('no_expediente').value = '';
+                document.getElementById('municipio').selectedIndex = 0;
+                archivoInput.value = '';
+                document.getElementById('visor').innerHTML = '';
+            } catch (err) {
+                alert('Error de conexión con el servidor');
+                console.error(err);
             }
-
-            alert('Registro guardado correctamente');
-            // Limpieza opcional
-            // document.getElementById('archivo').value = '';
         }
 
         function visualizarArchivo() {
