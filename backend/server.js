@@ -13,6 +13,9 @@ app.use(cors());
 app.use(express.json());
 
 // Servir frontend (HTML, CSS, JS)
+// ⚠️ Ajusta la ruta según tu estructura:
+// Si "consultores_juridicos" está FUERA de backend → "../consultores_juridicos"
+// Si está DENTRO de backend → "./consultores_juridicos"
 app.use(express.static(path.join(__dirname, "../consultores_juridicos")));
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "../consultores_juridicos/index.html"));
@@ -95,4 +98,3 @@ app.post("/api/expedientes", (req, res) => {
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
-
